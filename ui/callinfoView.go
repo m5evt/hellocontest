@@ -85,7 +85,7 @@ func (v *callinfoView) SetValue(points, multis int) {
 	case points < 1:
 		pointsMarkup = "foreground='silver'"
 	case points > 1:
-		pointsMarkup = "font-weight='heavy'"
+		pointsMarkup = "font-weight='heavy' foreground='cyan'"
 	}
 
 	var multisMarkup string
@@ -93,7 +93,7 @@ func (v *callinfoView) SetValue(points, multis int) {
 	case points < 1:
 		multisMarkup = "foreground='silver'"
 	case multis > 1:
-		multisMarkup = "font-weight='heavy'"
+		multisMarkup = "font-weight='heavy' foreground='cyan'"
 	}
 
 	text := fmt.Sprintf("<span %s>%d points</span> / <span %s>%d multis</span>", pointsMarkup, points, multisMarkup, multis)
@@ -119,14 +119,14 @@ func (v *callinfoView) SetSupercheck(callsigns []core.AnnotatedCallsign) {
 			attributes = append(attributes, "foreground='silver'")
 		}
 		if callsign.ExactMatch {
-			attributes = append(attributes, "font-weight='heavy' font-size='large'")
+			attributes = append(attributes, "foreground='cyan' font-weight='heavy' font-size='large'")
 		}
 		attributeString := strings.Join(attributes, " ")
 
 		renderedCallsign := fmt.Sprintf("<span %s>%s</span>", attributeString, callsign.Callsign)
 
 		if text != "" {
-			text += ", "
+			text += "  "
 		}
 		text += renderedCallsign
 	}
