@@ -131,9 +131,6 @@ func (v *entryView) onEntryKeyPress(_ interface{}, event *gdk.Event) bool {
 	case gdk.KEY_Tab:
 		v.controller.GotoNextField()
 		return true
-	case gdk.KEY_space:
-		v.controller.GotoNextField()
-		return true
 	case gdk.KEY_Return:
 		v.controller.Log()
 		return true
