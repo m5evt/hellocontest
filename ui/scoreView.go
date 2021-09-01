@@ -25,6 +25,6 @@ func (v *scoreView) ShowScore(score core.Score) {
 		return
 	}
 
-	renderedScore := fmt.Sprintf("<span allow_breaks='true' font_family='monospace'>%s</span>", score)
+	renderedScore := fmt.Sprintf("<span allow_breaks='true' font_family='Noto Sans'>%s</span>", score)
 	v.tableLabel.SetMarkup(renderedScore)
 }
