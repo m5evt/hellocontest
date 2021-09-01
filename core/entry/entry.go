@@ -16,7 +16,6 @@ import (
 // View represents the visual part of the QSO data entry.
 type View interface {
 	SetUTC(string)
-	SetMyCall(string)
 	SetFrequency(core.Frequency)
 	SetCallsign(string)
 	SetTheirReport(string)
@@ -536,7 +535,6 @@ func (c *Controller) Clear() {
 	c.input.myNumber = nextNumber.String()
 
 	c.showInput()
-	c.view.SetMyCall(c.stationCallsign)
 	c.view.SetFrequency(c.selectedFrequency)
 	c.view.SetActiveField(c.activeField)
 	c.view.SetDuplicateMarker(false)
@@ -581,7 +579,6 @@ func (c *Controller) CurrentValues() core.KeyerValues {
 
 func (c *Controller) StationChanged(station core.Station) {
 	c.stationCallsign = station.Callsign.String()
-	c.view.SetMyCall(c.stationCallsign)
 }
 
 func (c *Controller) ContestChanged(contest core.Contest) {
@@ -594,7 +591,6 @@ func (c *Controller) ContestChanged(contest core.Contest) {
 type nullView struct{}
 
 func (n *nullView) SetUTC(string)                   {}
-func (n *nullView) SetMyCall(string)                {}
 func (n *nullView) SetFrequency(core.Frequency)     {}
 func (n *nullView) SetCallsign(string)              {}
 func (n *nullView) SetTheirReport(string)           {}

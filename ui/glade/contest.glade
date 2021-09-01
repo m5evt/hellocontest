@@ -1183,19 +1183,6 @@
             <property name="row_spacing">5</property>
             <property name="column_spacing">5</property>
             <child>
-              <object class="GtkLabel" id="label2">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Their:</property>
-                <property name="width_chars">6</property>
-                <property name="xalign">0</property>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">2</property>
-              </packing>
-            </child>
-            <child>
               <object class="GtkEntry" id="callsignEntry">
                 <property name="name">callsignEntry</property>
                 <property name="visible">True</property>
@@ -1257,20 +1244,6 @@
               </object>
               <packing>
                 <property name="left_attach">3</property>
-                <property name="top_attach">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="label1">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes">My:</property>
-                <property name="ellipsize">start</property>
-                <property name="width_chars">6</property>
-                <property name="xalign">0</property>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
                 <property name="top_attach">1</property>
               </packing>
             </child>
@@ -1388,7 +1361,7 @@
               <object class="GtkLabel" id="myCallLabel">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">DL0ABC</property>
+                <property name="label" translatable="yes"></property>
                 <property name="ellipsize">start</property>
                 <property name="xalign">0</property>
               </object>
@@ -1432,8 +1405,7 @@
             <property name="fill">True</property>
             <property name="position">2</property>
           </packing>
-        </child>        
-            
+        </child>
         <child>
           <object class="GtkScrolledWindow" id="logViewContainer">
             <property name="width_request">555</property>
