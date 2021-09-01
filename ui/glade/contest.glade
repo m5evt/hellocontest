@@ -1227,21 +1227,6 @@
               </packing>
             </child>
             <child>
-              <object class="GtkEntry" id="theirNumberEntry">
-                <property name="name">theirNumberEntry</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="tooltip_text" translatable="yes">Their Number</property>
-                <property name="width_chars">5</property>
-                <property name="placeholder_text" translatable="yes">#</property>
-                <property name="input_purpose">digits</property>
-              </object>
-              <packing>
-                <property name="left_attach">3</property>
-                <property name="top_attach">2</property>
-              </packing>
-            </child>
-            <child>
               <object class="GtkEntry" id="myReportEntry">
                 <property name="name">myReportEntry</property>
                 <property name="visible">True</property>

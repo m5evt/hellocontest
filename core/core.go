@@ -120,7 +120,6 @@ type EntryField int
 const (
 	CallsignField EntryField = iota
 	TheirReportField
-	TheirNumberField
 	TheirXchangeField
 	MyReportField
 	MyNumberField

@@ -36,7 +36,6 @@ type entryView struct {
 	frequency    *gtk.Label
 	callsign     *gtk.Entry
 	theirReport  *gtk.Entry
-	theirNumber  *gtk.Entry
 	theirXchange *gtk.Entry
 	band         *gtk.ComboBoxText
 	mode         *gtk.ComboBoxText
@@ -57,7 +56,6 @@ func setupEntryView(builder *gtk.Builder) *entryView {
 	result.frequency = getUI(builder, "frequencyLabel").(*gtk.Label)
 	result.callsign = getUI(builder, "callsignEntry").(*gtk.Entry)
 	result.theirReport = getUI(builder, "theirReportEntry").(*gtk.Entry)
-	result.theirNumber = getUI(builder, "theirNumberEntry").(*gtk.Entry)
 	result.theirXchange = getUI(builder, "theirXchangeEntry").(*gtk.Entry)
 	result.band = getUI(builder, "bandCombo").(*gtk.ComboBoxText)
 	result.mode = getUI(builder, "modeCombo").(*gtk.ComboBoxText)
@@ -70,7 +68,6 @@ func setupEntryView(builder *gtk.Builder) *entryView {
 
 	result.addEntryEventHandlers(&result.callsign.Widget)
 	result.addEntryEventHandlers(&result.theirReport.Widget)
-	result.addEntryEventHandlers(&result.theirNumber.Widget)
 	result.addEntryEventHandlers(&result.theirXchange.Widget)
 	result.addEntryEventHandlers(&result.myReport.Widget)
 	result.addEntryEventHandlers(&result.myNumber.Widget)
@@ -87,10 +84,10 @@ func setupEntryView(builder *gtk.Builder) *entryView {
 	result.style = newStyle(`
 	.duplicate {
 		background-color: #FF0000; 
-		color: #FFFFFF;
+		color: #db125f;
 	}
 	.editing {
-		background-color: #66AAFF;
+		background-color: ##db125f;
 	}
 	`)
 	result.style.applyTo(&result.entryRoot.Widget)
@@ -232,10 +229,6 @@ func (v *entryView) SetTheirReport(text string) {
 	v.setTextWithoutChangeEvent(v.theirReport.SetText, text)
 }
 
-func (v *entryView) SetTheirNumber(text string) {
-	v.setTextWithoutChangeEvent(v.theirNumber.SetText, text)
-}
-
 func (v *entryView) SetTheirXchange(text string) {
 	v.setTextWithoutChangeEvent(v.theirXchange.SetText, text)
 }
@@ -265,7 +258,6 @@ func (v *entryView) SetMyXchange(text string) {
 }
 
 func (v *entryView) EnableExchangeFields(theirNumber, theirXchange bool) {
-	v.theirNumber.SetSensitive(theirNumber)
 	v.theirXchange.SetSensitive(theirXchange)
 }
 
@@ -280,8 +272,6 @@ func (v *entryView) fieldToWidget(field core.EntryField) *gtk.Widget {
 		return &v.callsign.Widget
 	case core.TheirReportField:
 		return &v.theirReport.Widget
-	case core.TheirNumberField:
-		return &v.theirNumber.Widget
 	case core.TheirXchangeField:
 		return &v.theirXchange.Widget
 	case core.MyReportField:
@@ -309,8 +299,6 @@ func (v *entryView) widgetToField(widget *gtk.Widget) core.EntryField {
 		return core.CallsignField
 	case "theirReportEntry":
 		return core.TheirReportField
-	case "theirNumberEntry":
-		return core.TheirNumberField
 	case "theirXchangeEntry":
 		return core.TheirXchangeField
 	case "myReportEntry":

@@ -20,7 +20,6 @@ type View interface {
 	SetFrequency(core.Frequency)
 	SetCallsign(string)
 	SetTheirReport(string)
-	SetTheirNumber(string)
 	SetTheirXchange(string)
 	SetBand(text string)
 	SetMode(text string)
@@ -198,18 +197,10 @@ func (c *Controller) GotoNextField() core.EntryField {
 		core.BandField:         core.CallsignField,
 		core.ModeField:         core.CallsignField,
 	}
-	if c.enableTheirNumber && c.enableTheirXchange {
-		transitions[core.TheirReportField] = core.TheirNumberField
-		transitions[core.TheirNumberField] = core.TheirXchangeField
-	} else if !c.enableTheirNumber && c.enableTheirXchange {
+	if c.enableTheirXchange {
 		transitions[core.TheirReportField] = core.TheirXchangeField
-		transitions[core.TheirNumberField] = core.CallsignField
-	} else if c.enableTheirNumber && !c.enableTheirXchange {
-		transitions[core.TheirReportField] = core.TheirNumberField
-		transitions[core.TheirNumberField] = core.CallsignField
-	} else if !c.enableTheirNumber && !c.enableTheirXchange {
+	} else {
 		transitions[core.TheirReportField] = core.CallsignField
-		transitions[core.TheirNumberField] = core.CallsignField
 	}
 	c.activeField = transitions[c.activeField]
 	c.view.SetActiveField(c.activeField)
@@ -272,7 +263,6 @@ func (c *Controller) showQSO(qso core.QSO) {
 func (c *Controller) showInput() {
 	c.view.SetCallsign(c.input.callsign)
 	c.view.SetTheirReport(c.input.theirReport)
-	c.view.SetTheirNumber(c.input.theirNumber)
 	c.view.SetTheirXchange(c.input.theirXchange)
 	c.view.SetMyReport(c.input.myReport)
 	c.view.SetMyNumber(c.input.myNumber)
@@ -306,8 +296,6 @@ func (c *Controller) Enter(text string) {
 		c.enterCallsign(text)
 	case core.TheirReportField:
 		c.input.theirReport = text
-	case core.TheirNumberField:
-		c.input.theirNumber = text
 	case core.TheirXchangeField:
 		c.input.theirXchange = text
 		c.enterTheirXchange(text)
@@ -395,7 +383,7 @@ func (c *Controller) SendQuestion() {
 	}
 
 	switch c.activeField {
-	case core.TheirReportField, core.TheirNumberField, core.TheirXchangeField:
+	case core.TheirReportField, core.TheirXchangeField:
 		c.keyer.SendQuestion("nr")
 	default:
 		c.keyer.SendQuestion(c.input.callsign)
@@ -480,21 +468,6 @@ func (c *Controller) Log() {
 	if err != nil {
 		c.showErrorOnField(err, core.TheirReportField)
 		return
-	}
-
-	if c.enableTheirNumber {
-		value := c.input.theirNumber
-		if value == "" {
-			c.showErrorOnField(errors.New("their number is missing"), core.TheirNumberField)
-			return
-		}
-
-		theirNumber, err := strconv.Atoi(value)
-		if err != nil {
-			c.showErrorOnField(err, core.TheirNumberField)
-			return
-		}
-		qso.TheirNumber = core.QSONumber(theirNumber)
 	}
 
 	if c.enableTheirXchange {
@@ -625,7 +598,6 @@ func (n *nullView) SetMyCall(string)                {}
 func (n *nullView) SetFrequency(core.Frequency)     {}
 func (n *nullView) SetCallsign(string)              {}
 func (n *nullView) SetTheirReport(string)           {}
-func (n *nullView) SetTheirNumber(string)           {}
 func (n *nullView) SetTheirXchange(string)          {}
 func (n *nullView) SetBand(text string)             {}
 func (n *nullView) SetMode(text string)             {}
