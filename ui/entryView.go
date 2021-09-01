@@ -3,6 +3,7 @@ package ui
 import (
 	"fmt"
 	"log"
+	"strings"
 
 	"github.com/gotk3/gotk3/gdk"
 	"github.com/gotk3/gotk3/gtk"
@@ -179,6 +180,7 @@ func (v *entryView) onEntryChanged(widget interface{}) bool {
 		if err != nil {
 			return false
 		}
+		w.SetText(strings.TrimSpace(strings.ToUpper(text)))
 		v.controller.Enter(text)
 	case *gtk.ComboBoxText:
 		activeField := v.widgetToField(&w.Widget)
