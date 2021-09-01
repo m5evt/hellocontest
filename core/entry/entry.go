@@ -32,6 +32,7 @@ type View interface {
 	SetEditingMarker(bool)
 	ShowMessage(...interface{})
 	ClearMessage()
+	ShowKeyerSpeed(int)
 }
 
 type input struct {
@@ -67,6 +68,8 @@ type QSOList interface {
 type Keyer interface {
 	SendQuestion(q string)
 	Stop()
+	DecreaseSpeed()
+	IncreaseSpeed()
 }
 
 // Callinfo functionality used for QSO entry.
@@ -559,6 +562,14 @@ func (c *Controller) StopTX() {
 	c.keyer.Stop()
 }
 
+func (c *Controller) KeyerInc() {
+	c.keyer.IncreaseSpeed()
+}
+
+func (c *Controller) KeyerDec() {
+	c.keyer.DecreaseSpeed()
+}
+
 func (c *Controller) selectLastQSO() {
 	c.ignoreQSOSelection = true
 	c.qsoList.SelectLastQSO()
@@ -606,6 +617,7 @@ func (n *nullView) SetDuplicateMarker(bool)         {}
 func (n *nullView) SetEditingMarker(bool)           {}
 func (n *nullView) ShowMessage(...interface{})      {}
 func (n *nullView) ClearMessage()                   {}
+func (n *nullView) ShowKeyerSpeed(int)              {}
 
 type nullVFO struct{}
 

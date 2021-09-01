@@ -305,6 +305,10 @@ func (m *EntryView) ShowMessage(args ...interface{}) {
 	m.Called(args)
 }
 
+func (m *EntryView) ShowKeyerSpeed(int) {
+	return
+}
+
 func (m *EntryView) ClearMessage() {
 	if !m.active {
 		return
@@ -374,6 +378,10 @@ func (m *KeyerView) Speed() int {
 }
 
 func (m *KeyerView) SetSpeed(speed int) {
+	m.Called(speed)
+}
+
+func (m *KeyerView) ShowKeyerSpeed(speed int) {
 	m.Called(speed)
 }
 

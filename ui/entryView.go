@@ -20,6 +20,9 @@ type EntryController interface {
 	SendQuestion()
 	StopTX()
 
+	KeyerInc()
+	KeyerDec()
+
 	Log()
 	Clear()
 }
@@ -32,7 +35,6 @@ type entryView struct {
 
 	entryRoot    *gtk.Grid
 	utc          *gtk.Label
-	myCall       *gtk.Label
 	frequency    *gtk.Label
 	callsign     *gtk.Entry
 	theirReport  *gtk.Entry
@@ -45,6 +47,7 @@ type entryView struct {
 	logButton    *gtk.Button
 	clearButton  *gtk.Button
 	messageLabel *gtk.Label
+	cwspeedLabel *gtk.Label
 }
 
 func setupEntryView(builder *gtk.Builder) *entryView {
@@ -52,7 +55,6 @@ func setupEntryView(builder *gtk.Builder) *entryView {
 
 	result.entryRoot = getUI(builder, "entryGrid").(*gtk.Grid)
 	result.utc = getUI(builder, "utcLabel").(*gtk.Label)
-	result.myCall = getUI(builder, "myCallLabel").(*gtk.Label)
 	result.frequency = getUI(builder, "frequencyLabel").(*gtk.Label)
 	result.callsign = getUI(builder, "callsignEntry").(*gtk.Entry)
 	result.theirReport = getUI(builder, "theirReportEntry").(*gtk.Entry)
@@ -65,6 +67,7 @@ func setupEntryView(builder *gtk.Builder) *entryView {
 	result.logButton = getUI(builder, "logButton").(*gtk.Button)
 	result.clearButton = getUI(builder, "clearButton").(*gtk.Button)
 	result.messageLabel = getUI(builder, "messageLabel").(*gtk.Label)
+	result.cwspeedLabel = getUI(builder, "cwspeedLabel").(*gtk.Label)
 
 	result.addEntryEventHandlers(&result.callsign.Widget)
 	result.addEntryEventHandlers(&result.theirReport.Widget)
@@ -136,6 +139,12 @@ func (v *entryView) onEntryKeyPress(_ interface{}, event *gdk.Event) bool {
 		return true
 	case gdk.KEY_question:
 		v.controller.SendQuestion()
+		return true
+	case gdk.KEY_Page_Up:
+		v.controller.KeyerInc()
+		return true
+	case gdk.KEY_Page_Down:
+		v.controller.KeyerDec()
 		return true
 	default:
 		return false
@@ -209,10 +218,6 @@ func (v *entryView) SetUTC(text string) {
 	runAsync(func() {
 		v.utc.SetText(text)
 	})
-}
-
-func (v *entryView) SetMyCall(text string) {
-	v.myCall.SetText(text)
 }
 
 func (v *entryView) SetFrequency(frequency core.Frequency) {
@@ -338,4 +343,8 @@ func (v *entryView) ShowMessage(args ...interface{}) {
 
 func (v *entryView) ClearMessage() {
 	v.messageLabel.SetText("")
+}
+
+func (v *entryView) ShowKeyerSpeed(speed int) {
+	v.cwspeedLabel.SetText(fmt.Sprintf("%2d", speed))
 }

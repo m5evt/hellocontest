@@ -16,7 +16,7 @@ import (
 type View interface {
 	ShowMessage(...interface{})
 	SetPattern(int, string)
-	SetSpeed(int)
+	ShowKeyerSpeed(int)
 }
 
 // CWClient defines the interface used by the Keyer to output the CW.
@@ -117,15 +117,11 @@ func (k *Keyer) SetKeyer(keyer core.Keyer) {
 		k.runTemplates[i], _ = template.New("").Parse(pattern)
 	}
 	k.showPatterns()
-	if k.view != nil {
-		k.view.SetSpeed(k.wpm)
-	}
 }
 
 func (k *Keyer) SetView(view View) {
 	k.view = view
 	k.showPatterns()
-	k.view.SetSpeed(k.wpm)
 }
 
 func (k *Keyer) showPatterns() {
@@ -195,6 +191,16 @@ func (k *Keyer) EnterSpeed(speed int) {
 	}
 	log.Printf("speed entered: %d", speed)
 	k.client.Speed(k.wpm)
+}
+
+func (k *Keyer) IncreaseSpeed() {
+	k.EnterSpeed(k.wpm + 1)
+	k.view.ShowKeyerSpeed(k.wpm)
+}
+
+func (k *Keyer) DecreaseSpeed() {
+	k.EnterSpeed(k.wpm - 1)
+	k.view.ShowKeyerSpeed(k.wpm)
 }
 
 func (k *Keyer) EnterPattern(index int, pattern string) {
