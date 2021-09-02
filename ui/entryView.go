@@ -14,6 +14,7 @@ import (
 // EntryController controls the entry of QSO data.
 type EntryController interface {
 	GotoNextField() core.EntryField
+	TabNextField() core.EntryField
 	SetActiveField(core.EntryField)
 
 	Enter(string)
@@ -22,6 +23,9 @@ type EntryController interface {
 
 	KeyerInc()
 	KeyerDec()
+
+	FButton(fkey int)
+	EscapeStateMachine()
 
 	Log()
 	Clear()
@@ -129,10 +133,10 @@ func (v *entryView) onEntryKeyPress(_ interface{}, event *gdk.Event) bool {
 	keyEvent := gdk.EventKeyNewFromEvent(event)
 	switch keyEvent.KeyVal() {
 	case gdk.KEY_Tab:
-		v.controller.GotoNextField()
+		v.controller.TabNextField()
 		return true
 	case gdk.KEY_Return:
-		v.controller.Log()
+		v.controller.GotoNextField()
 		return true
 	case gdk.KEY_question:
 		v.controller.SendQuestion()
@@ -142,6 +146,21 @@ func (v *entryView) onEntryKeyPress(_ interface{}, event *gdk.Event) bool {
 		return true
 	case gdk.KEY_Page_Down:
 		v.controller.KeyerDec()
+		return true
+	case gdk.KEY_F1:
+		v.controller.FButton(0)
+		return true
+	case gdk.KEY_F2:
+		v.controller.FButton(1)
+		return true
+	case gdk.KEY_F3:
+		v.controller.FButton(2)
+		return true
+	case gdk.KEY_F4:
+		v.controller.FButton(3)
+		return true
+	case gdk.KEY_Escape:
+		v.controller.EscapeStateMachine()
 		return true
 	default:
 		return false

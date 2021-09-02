@@ -70,6 +70,7 @@ type Keyer interface {
 	Stop()
 	DecreaseSpeed()
 	IncreaseSpeed()
+	Send(int)
 }
 
 // Callinfo functionality used for QSO entry.
@@ -186,6 +187,33 @@ func (c *Controller) SetVFO(vfo VFO) {
 }
 
 func (c *Controller) GotoNextField() core.EntryField {
+	transitions := map[core.EntryField]core.EntryField{
+		core.CallsignField: core.TheirXchangeField,
+		core.MyReportField: core.CallsignField,
+		core.MyNumberField: core.CallsignField,
+		core.BandField:     core.CallsignField,
+		core.ModeField:     core.CallsignField,
+	}
+
+	if c.enableTheirXchange {
+		transitions[core.TheirReportField] = core.TheirXchangeField
+	} else {
+		transitions[core.TheirReportField] = core.CallsignField
+	}
+
+	if c.activeField == core.TheirXchangeField {
+		if c.input.theirXchange != "" {
+			c.Log()
+			c.Clear()
+		}
+	} else {
+		c.activeField = transitions[c.activeField]
+		c.view.SetActiveField(c.activeField)
+	}
+	return c.activeField
+}
+
+func (c *Controller) TabNextField() core.EntryField {
 	switch c.activeField {
 	case core.CallsignField:
 		c.leaveCallsignField()
@@ -314,6 +342,24 @@ func (c *Controller) Enter(text string) {
 		c.input.mode = text
 		c.modeSelected(text)
 	}
+}
+
+func (c *Controller) FButton(fkey int) {
+	log.Printf("F%d\n", fkey)
+
+	if c.keyer == nil {
+		return
+	}
+
+	c.keyer.Send(fkey)
+}
+
+func (c *Controller) EscapeStateMachine() {
+	if c.keyer == nil {
+		return
+	}
+
+	c.keyer.Stop()
 }
 
 func (c *Controller) frequencySelected(frequency core.Frequency) {

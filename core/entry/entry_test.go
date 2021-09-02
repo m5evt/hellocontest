@@ -100,11 +100,10 @@ func TestEntryController_GotoNextField(t *testing.T) {
 	view.On("EnableExchangeFields", mock.Anything, mock.Anything).Times(len(testCases))
 	view.On("SetActiveField", mock.Anything).Times(len(testCases))
 	for _, tc := range testCases {
-		//	config.enterTheirNumber = tc.enterTheirNumber
 		config.enterTheirXchange = tc.enterTheirXchange
 		controller.ContestChanged(config.Contest())
 		controller.SetActiveField(tc.active)
-		actual := controller.GotoNextField()
+		actual := controller.TabNextField()
 		assert.Equal(t, tc.next, actual)
 		assert.Equal(t, tc.next, controller.activeField)
 	}
@@ -123,7 +122,7 @@ func TestEntryController_EnterNewCallsign(t *testing.T) {
 	view.On("SetActiveField", core.TheirReportField).Once()
 
 	controller.Enter("DL1ABC")
-	controller.GotoNextField()
+	controller.TabNextField()
 
 	assert.Equal(t, "DL1ABC", controller.input.callsign)
 
@@ -153,7 +152,7 @@ func TestEntryController_EnterDuplicateCallsign(t *testing.T) {
 	view.On("SetActiveField", core.TheirReportField).Once()
 
 	controller.Enter("DL1ABC")
-	controller.GotoNextField()
+	controller.TabNextField()
 
 	assert.False(t, controller.editing)
 	qsoList.AssertExpectations(t)
@@ -210,9 +209,9 @@ func TestEntryController_LogNewQSO(t *testing.T) {
 	controller.GotoNextField()
 
 	controller.Enter("DL1ABC")
-	controller.GotoNextField()
+	controller.TabNextField()
 	controller.Enter("559")
-	controller.GotoNextField()
+	controller.TabNextField()
 	controller.Enter("012")
 
 	controller.Log()
@@ -245,9 +244,9 @@ func TestEntryController_LogWithInvalidTheirReport(t *testing.T) {
 	controller.Enter("40m")
 	controller.SetActiveField(core.ModeField)
 	controller.Enter("CW")
-	controller.GotoNextField()
+	controller.TabNextField()
 	controller.Enter("DL1ABC")
-	controller.GotoNextField()
+	controller.TabNextField()
 	controller.Enter("000")
 
 	log.Activate()
@@ -269,9 +268,9 @@ func TestEntryController_LogWithoutMandatoryTheirXchange(t *testing.T) {
 	controller.Enter("40m")
 	controller.SetActiveField(core.ModeField)
 	controller.Enter("CW")
-	controller.GotoNextField()
+	controller.TabNextField()
 	controller.Enter("DL1ABC")
-	controller.GotoNextField()
+	controller.TabNextField()
 	controller.Enter("559")
 
 	log.Activate()
@@ -295,11 +294,11 @@ func TestEntryController_LogWithInvalidMyReport(t *testing.T) {
 	controller.Enter("CW")
 	controller.SetActiveField(core.MyReportField)
 	controller.Enter("000")
-	controller.GotoNextField()
+	controller.TabNextField()
 	controller.Enter("DL1ABC")
-	controller.GotoNextField()
+	controller.TabNextField()
 	controller.Enter("559")
-	controller.GotoNextField()
+	controller.TabNextField()
 	controller.Enter("1")
 
 	log.Activate()
@@ -383,12 +382,12 @@ func TestEntryController_LogDuplicateQSO(t *testing.T) {
 	controller.Enter("579")
 	controller.SetActiveField(core.MyXchangeField)
 	controller.Enter("myx")
-	controller.GotoNextField()
+	controller.TabNextField()
 
 	controller.Enter("DL1ABC")
-	controller.GotoNextField()
+	controller.TabNextField()
 	controller.Enter("569")
-	controller.GotoNextField()
+	controller.TabNextField()
 	controller.Enter("012")
 
 	controller.Log()
