@@ -43,7 +43,7 @@ type entryView struct {
 	callsign     *gtk.Entry
 	theirReport  *gtk.Entry
 	theirXchange *gtk.Entry
-	band         *gtk.ComboBoxText
+	band         *gtk.Label
 	mode         *gtk.ComboBoxText
 	myReport     *gtk.Entry
 	myNumber     *gtk.Entry
@@ -59,11 +59,10 @@ func setupEntryView(builder *gtk.Builder) *entryView {
 
 	result.entryRoot = getUI(builder, "entryGrid").(*gtk.Grid)
 	result.utc = getUI(builder, "utcLabel").(*gtk.Label)
-	result.frequency = getUI(builder, "frequencyLabel").(*gtk.Label)
 	result.callsign = getUI(builder, "callsignEntry").(*gtk.Entry)
 	result.theirReport = getUI(builder, "theirReportEntry").(*gtk.Entry)
 	result.theirXchange = getUI(builder, "theirXchangeEntry").(*gtk.Entry)
-	result.band = getUI(builder, "bandCombo").(*gtk.ComboBoxText)
+	result.band = getUI(builder, "bandLabel").(*gtk.Label)
 	result.mode = getUI(builder, "modeCombo").(*gtk.ComboBoxText)
 	result.myReport = getUI(builder, "myReportEntry").(*gtk.Entry)
 	result.myNumber = getUI(builder, "myNumberEntry").(*gtk.Entry)
@@ -79,13 +78,11 @@ func setupEntryView(builder *gtk.Builder) *entryView {
 	result.addEntryEventHandlers(&result.myReport.Widget)
 	result.addEntryEventHandlers(&result.myNumber.Widget)
 	result.addEntryEventHandlers(&result.myXchange.Widget)
-	result.addEntryEventHandlers(&result.band.Widget)
 	result.addEntryEventHandlers(&result.mode.Widget)
 
 	result.logButton.Connect("clicked", result.onLogButtonClicked)
 	result.clearButton.Connect("clicked", result.onClearButtonClicked)
 
-	setupBandCombo(result.band)
 	setupModeCombo(result.mode)
 
 	result.style = newStyle(`
@@ -100,14 +97,6 @@ func setupEntryView(builder *gtk.Builder) *entryView {
 	result.style.applyTo(&result.entryRoot.Widget)
 
 	return result
-}
-
-func setupBandCombo(combo *gtk.ComboBoxText) {
-	combo.RemoveAll()
-	for _, value := range core.Bands {
-		combo.Append(value.String(), value.String())
-	}
-	combo.SetActive(0)
 }
 
 func setupModeCombo(combo *gtk.ComboBoxText) {
@@ -238,7 +227,7 @@ func (v *entryView) SetUTC(text string) {
 
 func (v *entryView) SetFrequency(frequency core.Frequency) {
 	runAsync(func() {
-		v.frequency.SetText(fmt.Sprintf("%7.2f kHz", frequency/1000.0))
+		//v.frequency.SetText(fmt.Sprintf("%7.2f kHz", frequency/1000.0))
 	})
 }
 
@@ -256,7 +245,7 @@ func (v *entryView) SetTheirXchange(text string) {
 
 func (v *entryView) SetBand(text string) {
 	runAsync(func() {
-		v.setTextWithoutChangeEvent(func(s string) { v.band.SetActiveID(s) }, text)
+		v.band.SetText(text)
 	})
 }
 
