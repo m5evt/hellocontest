@@ -569,11 +569,3 @@ func (c *Controller) EditLastQSO() {
 func (c *Controller) LogQSO() {
 	c.Entry.Log()
 }
-
-func (c *Controller) SwitchToSPWorkmode() {
-	c.Workmode.SetWorkmode(core.SearchPounce)
-}
-
-func (c *Controller) SwitchToRunWorkmode() {
-	c.Workmode.SetWorkmode(core.Run)
-}

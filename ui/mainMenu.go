@@ -1,7 +1,6 @@
 package ui
 
 import (
-	"github.com/ftl/hellocontest/core"
 	"github.com/gotk3/gotk3/gtk"
 )
 
@@ -23,8 +22,6 @@ type MainMenuController interface {
 	GotoEntryFields()
 	EditLastQSO()
 	LogQSO()
-	SwitchToSPWorkmode()
-	SwitchToRunWorkmode()
 }
 
 type mainMenu struct {
@@ -43,8 +40,6 @@ type mainMenu struct {
 	editGotoEntryFields  *gtk.MenuItem
 	editEditLastQSO      *gtk.MenuItem
 	editLogQSO           *gtk.MenuItem
-	editSP               *gtk.RadioMenuItem
-	editRun              *gtk.RadioMenuItem
 
 	windowCallinfo *gtk.MenuItem
 	windowScore    *gtk.MenuItem
@@ -67,8 +62,6 @@ func setupMainMenu(builder *gtk.Builder) *mainMenu {
 	result.editGotoEntryFields = getUI(builder, "menuEditGotoEntryFields").(*gtk.MenuItem)
 	result.editEditLastQSO = getUI(builder, "menuEditEditLastQSO").(*gtk.MenuItem)
 	result.editLogQSO = getUI(builder, "menuEditLogQSO").(*gtk.MenuItem)
-	result.editSP = getUI(builder, "menuEditSP").(*gtk.RadioMenuItem)
-	result.editRun = getUI(builder, "menuEditRun").(*gtk.RadioMenuItem)
 	result.windowCallinfo = getUI(builder, "menuWindowCallinfo").(*gtk.MenuItem)
 	result.windowScore = getUI(builder, "menuWindowScore").(*gtk.MenuItem)
 	result.windowRate = getUI(builder, "menuWindowRate").(*gtk.MenuItem)
@@ -86,8 +79,6 @@ func setupMainMenu(builder *gtk.Builder) *mainMenu {
 	result.editGotoEntryFields.Connect("activate", result.onGotoEntryFields)
 	result.editEditLastQSO.Connect("activate", result.onEditLastQSO)
 	result.editLogQSO.Connect("activate", result.onLogQSO)
-	result.editSP.Connect("toggled", result.onSP)
-	result.editRun.Connect("toggled", result.onRun)
 	result.windowCallinfo.Connect("activate", result.onCallinfo)
 	result.windowScore.Connect("activate", result.onScore)
 	result.windowRate.Connect("activate", result.onRate)
@@ -98,21 +89,6 @@ func setupMainMenu(builder *gtk.Builder) *mainMenu {
 
 func (m *mainMenu) SetMainMenuController(controller MainMenuController) {
 	m.controller = controller
-}
-
-func (m *mainMenu) WorkmodeChanged(workmode core.Workmode) {
-	switch workmode {
-	case core.SearchPounce:
-		if m.editSP.GetActive() {
-			return
-		}
-		m.editSP.SetActive(true)
-	case core.Run:
-		if m.editRun.GetActive() {
-			return
-		}
-		m.editRun.SetActive(true)
-	}
 }
 
 func (m *mainMenu) onAbout() {
@@ -165,18 +141,6 @@ func (m *mainMenu) onEditLastQSO() {
 
 func (m *mainMenu) onLogQSO() {
 	m.controller.LogQSO()
-}
-
-func (m *mainMenu) onSP() {
-	if m.editSP.GetActive() {
-		m.controller.SwitchToSPWorkmode()
-	}
-}
-
-func (m *mainMenu) onRun() {
-	if m.editRun.GetActive() {
-		m.controller.SwitchToRunWorkmode()
-	}
 }
 
 func (m *mainMenu) onCallinfo() {

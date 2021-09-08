@@ -171,6 +171,10 @@ func (c *Controller) SetLogbook(logbook Logbook) {
 	c.showInput()
 }
 
+func (c *Controller) ToggleWorkmode() {
+	fmt.Printf("Toggle workmode\n")
+}
+
 func (c *Controller) SetKeyer(keyer Keyer) {
 	c.keyer = keyer
 }

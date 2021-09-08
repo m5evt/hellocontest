@@ -17,6 +17,8 @@ type EntryController interface {
 	TabNextField() core.EntryField
 	SetActiveField(core.EntryField)
 
+	ToggleWorkmode()
+
 	Enter(string)
 	SendQuestion()
 	StopTX()
@@ -52,6 +54,7 @@ type entryView struct {
 	clearButton  *gtk.Button
 	messageLabel *gtk.Label
 	cwspeedLabel *gtk.Label
+	wmLabel      *gtk.Label
 }
 
 func setupEntryView(builder *gtk.Builder) *entryView {
@@ -71,6 +74,7 @@ func setupEntryView(builder *gtk.Builder) *entryView {
 	result.clearButton = getUI(builder, "clearButton").(*gtk.Button)
 	result.messageLabel = getUI(builder, "messageLabel").(*gtk.Label)
 	result.cwspeedLabel = getUI(builder, "cwspeedLabel").(*gtk.Label)
+	result.wmLabel = getUI(builder, "workmodeLabe").(*gtk.Label)
 
 	result.addEntryEventHandlers(&result.callsign.Widget)
 	result.addEntryEventHandlers(&result.theirReport.Widget)
@@ -129,6 +133,10 @@ func (v *entryView) onEntryKeyPress(_ interface{}, event *gdk.Event) bool {
 		return true
 	case gdk.KEY_question:
 		v.controller.SendQuestion()
+		return true
+	case gdk.KEY_plus:
+		log.Printf("Plus")
+		v.controller.ToggleWorkmode()
 		return true
 	case gdk.KEY_Page_Up:
 		v.controller.KeyerInc()
@@ -352,4 +360,8 @@ func (v *entryView) ClearMessage() {
 
 func (v *entryView) ShowKeyerSpeed(speed int) {
 	v.cwspeedLabel.SetText(fmt.Sprintf("%2d", speed))
+}
+
+func (v *entryView) ShowWorkmode(text string) {
+	v.wmLabel.SetText(text)
 }

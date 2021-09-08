@@ -9,15 +9,9 @@ func NewController() *Controller {
 }
 
 type Controller struct {
-	view      View
 	listeners []interface{}
 
 	workmode core.Workmode
-}
-
-// View represents the visual part of the workmode handling.
-type View interface {
-	SetWorkmode(core.Workmode)
 }
 
 type WorkmodeChangedListener interface {
@@ -28,11 +22,6 @@ type WorkmodeChangedListenerFunc func(workmode core.Workmode)
 
 func (f WorkmodeChangedListenerFunc) WorkmodeChanged(workmode core.Workmode) {
 	f(workmode)
-}
-
-func (c *Controller) SetView(view View) {
-	c.view = view
-	c.view.SetWorkmode(c.workmode)
 }
 
 func (c *Controller) Workmode() core.Workmode {
@@ -52,9 +41,6 @@ func (c *Controller) Notify(listener interface{}) {
 }
 
 func (c *Controller) emitWorkmodeChanged(workmode core.Workmode) {
-	if c.view != nil {
-		c.view.SetWorkmode(workmode)
-	}
 	for _, listener := range c.listeners {
 		if workmodeChangedListener, ok := listener.(WorkmodeChangedListener); ok {
 			workmodeChangedListener.WorkmodeChanged(workmode)
