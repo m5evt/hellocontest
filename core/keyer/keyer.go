@@ -46,11 +46,10 @@ type Writer interface {
 }
 
 // New returns a new Keyer that has no patterns or templates defined yet.
-func New(settings core.Settings, client CWClient, keyer core.Keyer, workmode core.Workmode) *Keyer {
+func New(settings core.Settings, client CWClient, keyer core.Keyer) *Keyer {
 	result := &Keyer{
 		writer:          new(nullWriter),
 		stationCallsign: settings.Station().Callsign,
-		workmode:        workmode,
 		spPatterns:      make(map[int]string),
 		spTemplates:     make(map[int]*template.Template),
 		runPatterns:     make(map[int]string),
@@ -58,7 +57,7 @@ func New(settings core.Settings, client CWClient, keyer core.Keyer, workmode cor
 		client:          client,
 		values:          noValues,
 	}
-	result.setWorkmode(workmode)
+	result.setWorkmode(core.Run)
 	result.SetKeyer(keyer)
 	if result.client == nil {
 		result.client = new(nullClient)
@@ -76,7 +75,6 @@ type Keyer struct {
 	listeners []interface{}
 
 	stationCallsign callsign.Callsign
-	workmode        core.Workmode
 	wpm             int
 	spPatterns      map[int]string
 	spTemplates     map[int]*template.Template

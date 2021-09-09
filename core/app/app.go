@@ -26,7 +26,6 @@ import (
 	"github.com/ftl/hellocontest/core/settings"
 	"github.com/ftl/hellocontest/core/store"
 	"github.com/ftl/hellocontest/core/tci"
-	"github.com/ftl/hellocontest/core/workmode"
 )
 
 // NewController returns a new instance of the AppController interface.
@@ -60,7 +59,6 @@ type Controller struct {
 	Logbook       *logbook.Logbook
 	QSOList       *logbook.QSOList
 	Entry         *entry.Controller
-	Workmode      *workmode.Controller
 	Keyer         *keyer.Keyer
 	Callinfo      *callinfo.Callinfo
 	Score         *score.Counter
@@ -153,12 +151,9 @@ func (c *Controller) Startup() {
 		keyerCWClient = c.cwclient
 	}
 
-	c.Workmode = workmode.NewController()
-
-	c.Keyer = keyer.New(c.Settings, keyerCWClient, c.configuration.Keyer(), c.Workmode.Workmode())
+	c.Keyer = keyer.New(c.Settings, keyerCWClient, c.configuration.Keyer())
 	c.Keyer.SetValues(c.Entry.CurrentValues)
 	c.Keyer.Notify(c.ServiceStatus)
-	c.Workmode.Notify(c.Keyer)
 	c.Entry.SetKeyer(c.Keyer)
 
 	c.Score = score.NewCounter(c.Settings, c.dxccFinder)

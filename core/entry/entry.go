@@ -33,6 +33,7 @@ type View interface {
 	ShowMessage(...interface{})
 	ClearMessage()
 	ShowKeyerSpeed(int)
+	ShowWorkmode(string)
 }
 
 type input struct {
@@ -71,6 +72,7 @@ type Keyer interface {
 	DecreaseSpeed()
 	IncreaseSpeed()
 	Send(int)
+	WorkmodeChanged(core.Workmode)
 }
 
 // Callinfo functionality used for QSO entry.
@@ -131,6 +133,7 @@ type Controller struct {
 	editing            bool
 	editQSO            core.QSO
 	ignoreQSOSelection bool
+	workmode           core.Workmode
 }
 
 func (c *Controller) SetView(view View) {
@@ -173,6 +176,16 @@ func (c *Controller) SetLogbook(logbook Logbook) {
 
 func (c *Controller) ToggleWorkmode() {
 	fmt.Printf("Toggle workmode\n")
+	switch c.workmode {
+	case core.SearchPounce:
+		c.view.ShowWorkmode("Run")
+		c.workmode = core.Run
+		c.keyer.WorkmodeChanged(core.Run)
+	case core.Run:
+		c.view.ShowWorkmode("SP")
+		c.workmode = core.SearchPounce
+		c.keyer.WorkmodeChanged(core.SearchPounce)
+	}
 }
 
 func (c *Controller) SetKeyer(keyer Keyer) {
@@ -668,6 +681,7 @@ func (n *nullView) SetEditingMarker(bool)           {}
 func (n *nullView) ShowMessage(...interface{})      {}
 func (n *nullView) ClearMessage()                   {}
 func (n *nullView) ShowKeyerSpeed(int)              {}
+func (n *nullView) ShowWorkmode(string)             {}
 
 type nullVFO struct{}
 

@@ -135,7 +135,6 @@ func (v *entryView) onEntryKeyPress(_ interface{}, event *gdk.Event) bool {
 		v.controller.SendQuestion()
 		return true
 	case gdk.KEY_plus:
-		log.Printf("Plus")
 		v.controller.ToggleWorkmode()
 		return true
 	case gdk.KEY_Page_Up:
