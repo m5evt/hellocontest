@@ -220,10 +220,14 @@ func (c *Controller) GotoNextField() core.EntryField {
 
 	if c.activeField == core.TheirXchangeField {
 		if c.input.theirXchange != "" {
+			c.FButton(2)
 			c.Log()
 			c.Clear()
+		} else {
+			c.FButton(1)
 		}
 	} else {
+		c.FButton(1)
 		c.activeField = transitions[c.activeField]
 		c.view.SetActiveField(c.activeField)
 	}
@@ -367,8 +371,9 @@ func (c *Controller) FButton(fkey int) {
 	if c.keyer == nil {
 		return
 	}
-
-	c.keyer.Send(fkey)
+	if c.editing == false {
+		c.keyer.Send(fkey)
+	}
 }
 
 func (c *Controller) EscapeStateMachine() {
