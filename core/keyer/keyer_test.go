@@ -33,7 +33,7 @@ func TestSend(t *testing.T) {
 	cwClient.On("Send", "DL1ABC DL0ZZZ t56 5nn ABC").Once()
 	cwClient.On("IsConnected").Return(true)
 
-	keyer := New(&testSettings{"DL1ABC"}, cwClient, keyerSettings, core.SearchPounce)
+	keyer := New(&testSettings{"DL1ABC"}, cwClient, keyerSettings)
 	keyer.SetView(view)
 	keyer.SetValues(values)
 	keyer.EnterPattern(0, "{{.MyCall}} {{.TheirCall}} {{.MyNumber}} {{.MyReport}} {{.MyXchange}}")

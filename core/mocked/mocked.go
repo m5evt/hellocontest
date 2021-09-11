@@ -193,6 +193,13 @@ func (m *EntryView) SetUTC(utc string) {
 	m.Called(utc)
 }
 
+func (m *EntryView) ShowWorkmode(wmode string) {
+	if !m.active {
+		return
+	}
+	m.Called(wmode)
+}
+
 func (m *EntryView) SetMyCall(mycall string) {
 	if !m.active {
 		return

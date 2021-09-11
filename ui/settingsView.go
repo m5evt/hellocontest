@@ -39,8 +39,6 @@ const (
 	stationOperator                fieldID = "stationOperator"
 	stationLocator                 fieldID = "stationLocator"
 	contestName                    fieldID = "contestName"
-	contestEnterTheirNumber        fieldID = "contestEnterTheirNumber"
-	contestEnterTheirXchange       fieldID = "contestEnterTheirXchange"
 	contestRequireTheirXchange     fieldID = "contestRequireTheirXchange"
 	contestAllowMultiBand          fieldID = "contestAllowMultiBand"
 	contestAllowMultiMode          fieldID = "contestAllowMultiMode"
@@ -91,8 +89,6 @@ func setupSettingsView(builder *gtk.Builder, parent *gtk.Dialog, controller Sett
 	result.addEntry(builder, stationOperator)
 	result.addEntry(builder, stationLocator)
 	result.addEntry(builder, contestName)
-	result.addCheckButton(builder, contestEnterTheirNumber)
-	result.addCheckButton(builder, contestEnterTheirXchange)
 	result.addCheckButton(builder, contestRequireTheirXchange)
 	result.addCheckButton(builder, contestAllowMultiBand)
 	result.addCheckButton(builder, contestAllowMultiMode)
@@ -171,10 +167,6 @@ func (v *settingsView) onFieldChanged(w interface{}) bool {
 		v.controller.EnterStationLocator(value.(string))
 	case contestName:
 		v.controller.EnterContestName(value.(string))
-	case contestEnterTheirNumber:
-		v.controller.EnterContestEnterTheirNumber(value.(bool))
-	case contestEnterTheirXchange:
-		v.controller.EnterContestEnterTheirXchange(value.(bool))
 	case contestRequireTheirXchange:
 		v.controller.EnterContestRequireTheirXchange(value.(bool))
 	case contestAllowMultiBand:
@@ -269,14 +261,6 @@ func (v *settingsView) SetStationLocator(value string) {
 
 func (v *settingsView) SetContestName(value string) {
 	v.setEntryField(contestName, value)
-}
-
-func (v *settingsView) SetContestEnterTheirNumber(value bool) {
-	v.setCheckButtonField(contestEnterTheirNumber, value)
-}
-
-func (v *settingsView) SetContestEnterTheirXchange(value bool) {
-	v.setCheckButtonField(contestEnterTheirXchange, value)
 }
 
 func (v *settingsView) SetContestRequireTheirXchange(value bool) {

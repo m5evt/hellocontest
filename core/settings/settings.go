@@ -61,8 +61,6 @@ type View interface {
 	SetStationOperator(string)
 	SetStationLocator(string)
 	SetContestName(string)
-	SetContestEnterTheirNumber(bool)
-	SetContestEnterTheirXchange(bool)
 	SetContestRequireTheirXchange(bool)
 	SetContestAllowMultiBand(bool)
 	SetContestAllowMultiMode(bool)
@@ -198,8 +196,6 @@ func (s *Settings) showSettings() {
 
 	// contest
 	s.view.SetContestName(s.contest.Name)
-	s.view.SetContestEnterTheirNumber(s.contest.EnterTheirNumber)
-	s.view.SetContestEnterTheirXchange(s.contest.EnterTheirXchange)
 	s.view.SetContestRequireTheirXchange(s.contest.RequireTheirXchange)
 	s.view.SetContestAllowMultiBand(s.contest.AllowMultiBand)
 	s.view.SetContestAllowMultiMode(s.contest.AllowMultiMode)

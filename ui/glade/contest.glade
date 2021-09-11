@@ -1139,38 +1139,6 @@
               </packing>
             </child>
             <child>
-              <object class="GtkCheckButton" id="contestEnterTheirNumberButton">
-                <property name="label" translatable="yes">Enter Their Number</property>
-                <property name="name">contestEnterTheirNumber</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="tooltip_text" translatable="yes">Check this if you will receive a serial number from the opposite station</property>
-                <property name="halign">start</property>
-                <property name="draw_indicator">True</property>
-              </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">6</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkCheckButton" id="contestEnterTheirXchangeButton">
-                <property name="label" translatable="yes">Enter Their Xchange</property>
-                <property name="name">contestEnterTheirXchange</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="tooltip_text" translatable="yes">Check this if you will receive an exchange from the opposite station</property>
-                <property name="halign">start</property>
-                <property name="draw_indicator">True</property>
-              </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">7</property>
-              </packing>
-            </child>
-            <child>
               <object class="GtkCheckButton" id="contestRequireTheirXchangeButton">
                 <property name="label" translatable="yes">Their Xchange is Required</property>
                 <property name="name">contestRequireTheirXchange</property>
@@ -1544,6 +1512,12 @@
                 <property name="left_attach">1</property>
                 <property name="top_attach">20</property>
               </packing>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
             </child>
             <child>
               <placeholder/>
