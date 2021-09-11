@@ -78,7 +78,6 @@ func (a *application) activate() {
 	a.mainWindow.SetMainMenuController(a.controller)
 	a.mainWindow.SetLogbookController(a.controller.QSOList)
 	a.mainWindow.SetEntryController(a.controller.Entry)
-	a.mainWindow.SetKeyerController(a.controller.Keyer)
 
 	a.controller.SetView(a.mainWindow)
 	a.controller.QSOList.Notify(a.mainWindow)

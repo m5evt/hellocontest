@@ -15,7 +15,6 @@ import (
 // View represents the visual parts of the keyer.
 type View interface {
 	ShowMessage(...interface{})
-	SetPattern(int, string)
 	ShowKeyerSpeed(int)
 }
 
@@ -114,26 +113,14 @@ func (k *Keyer) SetKeyer(keyer core.Keyer) {
 		k.runPatterns[i] = pattern
 		k.runTemplates[i], _ = template.New("").Parse(pattern)
 	}
-	k.showPatterns()
 }
 
 func (k *Keyer) SetView(view View) {
 	k.view = view
-	k.showPatterns()
-}
-
-func (k *Keyer) showPatterns() {
-	if k.view == nil {
-		return
-	}
-	for i, pattern := range *k.patterns {
-		k.view.SetPattern(i, pattern)
-	}
 }
 
 func (k *Keyer) WorkmodeChanged(workmode core.Workmode) {
 	k.setWorkmode(workmode)
-	k.showPatterns()
 }
 
 func (k *Keyer) StationChanged(station core.Station) {
