@@ -24,6 +24,7 @@ func setupCallinfoView(builder *gtk.Builder) *callinfoView {
 	result.valueLabel = getUI(builder, "valueLabel").(*gtk.Label)
 	result.supercheckLabel = getUI(builder, "supercheckLabel").(*gtk.Label)
 
+	addStyleClass(&result.callsignLabel.Widget, "callsignlookup")
 	return result
 }
 

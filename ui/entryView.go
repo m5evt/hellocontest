@@ -36,7 +36,6 @@ type EntryController interface {
 type entryView struct {
 	controller EntryController
 
-	style       *style
 	ignoreInput bool
 
 	entryRoot    *gtk.Grid
@@ -80,17 +79,7 @@ func setupEntryView(builder *gtk.Builder) *entryView {
 
 	setupModeCombo(result.mode)
 
-	result.style = newStyle(`
-	.duplicate {
-		background-color: #FF0000; 
-		color: #db125f;
-	}
-	.editing {
-		background-color: ##db125f;
-	}
-	`)
-	result.style.applyTo(&result.entryRoot.Widget)
-
+	addStyleClass(&result.messageLabel.Widget, "message")
 	return result
 }
 
@@ -302,17 +291,17 @@ func (v *entryView) widgetToField(widget *gtk.Widget) core.EntryField {
 
 func (v *entryView) SetDuplicateMarker(duplicate bool) {
 	if duplicate {
-		addStyleClass(&v.entryRoot.Widget, "duplicate")
+		addStyleClass(&v.callsign.Widget, "duplicate")
 	} else {
-		removeStyleClass(&v.entryRoot.Widget, "duplicate")
+		removeStyleClass(&v.callsign.Widget, "duplicate")
 	}
 }
 
 func (v *entryView) SetEditingMarker(editing bool) {
 	if editing {
-		addStyleClass(&v.entryRoot.Widget, "editing")
+		addStyleClass(&v.callsign.Widget, "editing")
 	} else {
-		removeStyleClass(&v.entryRoot.Widget, "editing")
+		removeStyleClass(&v.callsign.Widget, "editing")
 	}
 }
 

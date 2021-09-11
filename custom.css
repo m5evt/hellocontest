@@ -1,0 +1,116 @@
+/*
+You can type here any CSS rule recognized by GTK+.
+You can temporarily disable this custom CSS by clicking on the “Pause” button above.
+
+Changes are applied instantly and globally, for the whole application.
+*/
+
+window {
+background-color:  #212429;
+}
+
+window treeview {
+color:             #6272a4;
+font-family: Meslo LGS NF;
+font-size: 14px;
+outline-color: #6272a4;
+text-decoration-color: #ff5555;
+}
+
+window scrolledwindow {
+color:            #50fa7b;
+outline-color: #6272a4;
+}
+
+window treeview selection {
+background-color: #ff5555;
+color: #8be9fd;
+}
+
+window scrolledwindow selection {
+background-color: #ff5555;
+color: #8be9fd;
+}
+
+window header {
+color:            #6272a4;
+border-bottom-color: #ffb86c;
+background-color: #ffb86c;
+}
+
+window grid {
+background-color: #282a36;
+color:            #6272a4;
+border: #bd93f9;
+border-width: 10px 0 0 0;
+font-family: Noto Sans;
+font-size: 12px;
+padding-left: 10px;
+padding-right: 10px;
+outline-color: #50fa7b;
+outline-style: solid;
+border-top-left-radius: 3px;
+border-top-right-radius: 3px;
+border-bottom-right-radius: 3px;
+border-bottom-left-radius: 3px;
+}
+
+
+
+window entry selection {
+background-color: #44475a;
+color: #ff79c6;
+}
+
+.duplicate {
+color:            #ff5555;
+}
+
+.editing {
+color:            #f1fa8c;
+}
+
+.message {
+color:            #ff79c6;
+}
+
+.callsignlookup {
+    background-color: #282a36;
+color:            #50fa7b;
+    font-family: Meslo LGS NF;
+font-size: 12px;
+}
+
+.callsignworked {
+    background-color: #282a36;
+color:            #ff5555;
+    font-family: Meslo LGS NF;
+font-size: 17px;
+}
+
+.entry {
+background-color: #282a36;
+color:            #6272a4;
+border: #bd93f9;
+border-width: 10px 0 0 0;
+font-family: Noto Sans;
+font-size: 12px;
+padding-left: 10px;
+padding-right: 10px;
+outline-color: #50fa7b;
+outline-style: solid;
+border-top-left-radius: 3px;
+border-top-right-radius: 3px;
+border-bottom-right-radius: 3px;
+border-bottom-left-radius: 3px;
+}
+
+window entry {
+background-color: #44475a;
+color:            #ffb86c;
+  border: #44475a;
+  border-width: 4px 0 0 0;
+font-family: Meslo LGS NF;
+font-size: 20px;
+caret-color: #6272a4;
+}

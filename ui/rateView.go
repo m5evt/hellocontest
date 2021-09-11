@@ -25,7 +25,7 @@ func (v *rateView) ShowRate(rate core.QSORate) {
 		return
 	}
 
-	text := `<span allow_breaks='true' font_family='Noto Sans' font_weight='bold'>Last 60 min: %3d Q/h
+	text := `<span allow_breaks='true' font_weight='bold'>Last 60 min: %3d Q/h
 Last  5 min: %3d Q/h
 Last QSO: %9s
 </span>`

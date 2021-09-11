@@ -69,6 +69,14 @@ func (a *application) activate() {
 	a.controller = app.NewController(a.version, clock.New(), a.app, a.runAsync, configuration)
 	a.controller.Startup()
 
+	// Load CSS stylesheet
+	mRefProvider, _ := gtk.CssProviderNew()
+	mRefProvider.LoadFromPath("custom.css")
+
+	// Apply to whole app
+	screen, _ := gdk.ScreenGetDefault()
+	gtk.AddProviderForScreen(screen, mRefProvider, gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+
 	a.mainWindow = setupMainWindow(a.builder, a.app)
 	a.callinfoWindow = setupCallinfoWindow(a.windowGeometry)
 	a.scoreWindow = setupScoreWindow(a.windowGeometry)
