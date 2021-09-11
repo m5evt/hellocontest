@@ -47,9 +47,6 @@ type entryView struct {
 	theirXchange *gtk.Entry
 	band         *gtk.Label
 	mode         *gtk.ComboBoxText
-	myReport     *gtk.Entry
-	myNumber     *gtk.Entry
-	myXchange    *gtk.Entry
 	logButton    *gtk.Button
 	clearButton  *gtk.Button
 	messageLabel *gtk.Label
@@ -67,9 +64,6 @@ func setupEntryView(builder *gtk.Builder) *entryView {
 	result.theirXchange = getUI(builder, "theirXchangeEntry").(*gtk.Entry)
 	result.band = getUI(builder, "bandLabel").(*gtk.Label)
 	result.mode = getUI(builder, "modeCombo").(*gtk.ComboBoxText)
-	result.myReport = getUI(builder, "myReportEntry").(*gtk.Entry)
-	result.myNumber = getUI(builder, "myNumberEntry").(*gtk.Entry)
-	result.myXchange = getUI(builder, "myXchangeEntry").(*gtk.Entry)
 	result.logButton = getUI(builder, "logButton").(*gtk.Button)
 	result.clearButton = getUI(builder, "clearButton").(*gtk.Button)
 	result.messageLabel = getUI(builder, "messageLabel").(*gtk.Label)
@@ -79,9 +73,6 @@ func setupEntryView(builder *gtk.Builder) *entryView {
 	result.addEntryEventHandlers(&result.callsign.Widget)
 	result.addEntryEventHandlers(&result.theirReport.Widget)
 	result.addEntryEventHandlers(&result.theirXchange.Widget)
-	result.addEntryEventHandlers(&result.myReport.Widget)
-	result.addEntryEventHandlers(&result.myNumber.Widget)
-	result.addEntryEventHandlers(&result.myXchange.Widget)
 	result.addEntryEventHandlers(&result.mode.Widget)
 
 	result.logButton.Connect("clicked", result.onLogButtonClicked)
@@ -262,18 +253,6 @@ func (v *entryView) SetMode(text string) {
 	})
 }
 
-func (v *entryView) SetMyReport(text string) {
-	v.setTextWithoutChangeEvent(v.myReport.SetText, text)
-}
-
-func (v *entryView) SetMyNumber(text string) {
-	v.setTextWithoutChangeEvent(v.myNumber.SetText, text)
-}
-
-func (v *entryView) SetMyXchange(text string) {
-	v.setTextWithoutChangeEvent(v.myXchange.SetText, text)
-}
-
 func (v *entryView) EnableExchangeFields(theirNumber, theirXchange bool) {
 	v.theirXchange.SetSensitive(theirXchange)
 }
@@ -291,12 +270,6 @@ func (v *entryView) fieldToWidget(field core.EntryField) *gtk.Widget {
 		return &v.theirReport.Widget
 	case core.TheirXchangeField:
 		return &v.theirXchange.Widget
-	case core.MyReportField:
-		return &v.myReport.Widget
-	case core.MyNumberField:
-		return &v.myNumber.Widget
-	case core.MyXchangeField:
-		return &v.myXchange.Widget
 	case core.BandField:
 		return &v.band.Widget
 	case core.ModeField:
@@ -318,12 +291,6 @@ func (v *entryView) widgetToField(widget *gtk.Widget) core.EntryField {
 		return core.TheirReportField
 	case "theirXchangeEntry":
 		return core.TheirXchangeField
-	case "myReportEntry":
-		return core.MyReportField
-	case "myNumberEntry":
-		return core.MyNumberField
-	case "myXchangeEntry":
-		return core.MyXchangeField
 	case "bandCombo":
 		return core.BandField
 	case "modeCombo":

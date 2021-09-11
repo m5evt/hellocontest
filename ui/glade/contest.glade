@@ -446,40 +446,6 @@
               </packing>
             </child>
             <child>
-              <object class="GtkEntry" id="myReportEntry">
-                <property name="name">myReportEntry</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="tooltip_text" translatable="yes">My Report (Ctrl-r)</property>
-                <property name="max_length">3</property>
-                <property name="width_chars">3</property>
-                <property name="max_width_chars">3</property>
-                <property name="placeholder_text" translatable="yes">RST</property>
-                <property name="input_purpose">digits</property>
-                <accelerator key="r" signal="grab-focus" modifiers="GDK_MOD1_MASK"/>
-              </object>
-              <packing>
-                <property name="left_attach">2</property>
-                <property name="top_attach">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkEntry" id="myNumberEntry">
-                <property name="name">myNumberEntry</property>
-                <property name="visible">True</property>
-                <property name="sensitive">False</property>
-                <property name="can_focus">False</property>
-                <property name="tooltip_text" translatable="yes">My Number</property>
-                <property name="width_chars">5</property>
-                <property name="placeholder_text" translatable="yes">#</property>
-                <property name="input_purpose">digits</property>
-              </object>
-              <packing>
-                <property name="left_attach">3</property>
-                <property name="top_attach">1</property>
-              </packing>
-            </child>
-            <child>
               <object class="GtkLabel" id="messageLabel">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
@@ -490,35 +456,6 @@
                 <property name="left_attach">0</property>
                 <property name="top_attach">3</property>
                 <property name="width">7</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkEntry" id="myXchangeEntry">
-                <property name="name">myXchangeEntry</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="tooltip_text" translatable="yes">My Exchange</property>
-                <property name="width_chars">5</property>
-                <property name="placeholder_text" translatable="yes">XChg</property>
-                <property name="input_hints">GTK_INPUT_HINT_UPPERCASE_CHARS | GTK_INPUT_HINT_NONE</property>
-                <accelerator key="x" signal="grab-focus" modifiers="GDK_MOD1_MASK"/>
-              </object>
-              <packing>
-                <property name="left_attach">4</property>
-                <property name="top_attach">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="clearButton">
-                <property name="label" translatable="yes">Clear</property>
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="receives_default">True</property>
-                <property name="tooltip_text" translatable="yes">Clear the entry fields</property>
-              </object>
-              <packing>
-                <property name="left_attach">5</property>
-                <property name="top_attach">1</property>
               </packing>
             </child>
             <child>
@@ -578,14 +515,16 @@
               </packing>
             </child>
             <child>
-              <object class="GtkLabel" id="cwspeedLabel">
+              <object class="GtkButton" id="clearButton">
+                <property name="label" translatable="yes">Clear</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">25</property>
+                <property name="receives_default">True</property>
+                <property name="tooltip_text" translatable="yes">Clear the entry fields</property>
               </object>
               <packing>
-                <property name="left_attach">4</property>
-                <property name="top_attach">0</property>
+                <property name="left_attach">6</property>
+                <property name="top_attach">2</property>
               </packing>
             </child>
             <child>
@@ -596,7 +535,29 @@
               </object>
               <packing>
                 <property name="left_attach">5</property>
-                <property name="top_attach">0</property>
+                <property name="top_attach">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="workmodeLabe">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Run</property>
+              </object>
+              <packing>
+                <property name="left_attach">6</property>
+                <property name="top_attach">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="cwspeedLabel">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">25</property>
+              </object>
+              <packing>
+                <property name="left_attach">4</property>
+                <property name="top_attach">1</property>
               </packing>
             </child>
             <child>
@@ -613,15 +574,13 @@
               </packing>
             </child>
             <child>
-              <object class="GtkLabel" id="workmodeLabe">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Run</property>
-              </object>
-              <packing>
-                <property name="left_attach">6</property>
-                <property name="top_attach">0</property>
-              </packing>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
             </child>
             <child>
               <placeholder/>

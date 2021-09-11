@@ -40,9 +40,6 @@ func TestEntryController_ClearView(t *testing.T) {
 	qsoList.On("SelectLastQSO").Once()
 
 	view.Activate()
-	view.On("SetMyReport", "599").Once()
-	view.On("SetMyNumber", "001").Once()
-	view.On("SetMyXchange", "").Once()
 	view.On("SetFrequency", mock.Anything).Once()
 	view.On("SetCallsign", "").Once()
 	view.On("SetTheirReport", "599").Once()
@@ -419,9 +416,6 @@ func TestEntryController_SelectRowForEditing(t *testing.T) {
 	view.On("SetCallsign", "DL1ABC").Once()
 	view.On("SetTheirReport", "559").Once()
 	view.On("SetTheirXchange", "A01").Once()
-	view.On("SetMyReport", "579").Once()
-	view.On("SetMyNumber", "034").Once()
-	view.On("SetMyXchange", "B36").Once()
 	view.On("SetActiveField", core.CallsignField).Once()
 	view.On("SetEditingMarker", true).Once()
 

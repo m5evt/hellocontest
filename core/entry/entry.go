@@ -22,9 +22,6 @@ type View interface {
 	SetTheirXchange(string)
 	SetBand(text string)
 	SetMode(text string)
-	SetMyReport(string)
-	SetMyNumber(string)
-	SetMyXchange(string)
 
 	EnableExchangeFields(bool, bool)
 	SetActiveField(core.EntryField)
@@ -298,9 +295,6 @@ func (c *Controller) showQSO(qso core.QSO) {
 	c.input.theirReport = qso.TheirReport.String()
 	c.input.theirNumber = qso.TheirNumber.String()
 	c.input.theirXchange = qso.TheirXchange
-	c.input.myReport = qso.MyReport.String()
-	c.input.myNumber = qso.MyNumber.String()
-	c.input.myXchange = qso.MyXchange
 	c.input.band = qso.Band.String()
 	c.input.mode = qso.Mode.String()
 
@@ -315,9 +309,6 @@ func (c *Controller) showInput() {
 	c.view.SetCallsign(c.input.callsign)
 	c.view.SetTheirReport(c.input.theirReport)
 	c.view.SetTheirXchange(c.input.theirXchange)
-	c.view.SetMyReport(c.input.myReport)
-	c.view.SetMyNumber(c.input.myNumber)
-	c.view.SetMyXchange(c.input.myXchange)
 	c.view.SetBand(c.input.band)
 	c.view.SetMode(c.input.mode)
 }

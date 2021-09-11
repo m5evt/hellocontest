@@ -256,27 +256,6 @@ func (m *EntryView) SetMode(text string) {
 	m.Called(text)
 }
 
-func (m *EntryView) SetMyReport(report string) {
-	if !m.active {
-		return
-	}
-	m.Called(report)
-}
-
-func (m *EntryView) SetMyNumber(number string) {
-	if !m.active {
-		return
-	}
-	m.Called(number)
-}
-
-func (m *EntryView) SetMyXchange(xchange string) {
-	if !m.active {
-		return
-	}
-	m.Called(xchange)
-}
-
 func (m *EntryView) EnableExchangeFields(theirNumber, theirXchange bool) {
 	if !m.active {
 		return
