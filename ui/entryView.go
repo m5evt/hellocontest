@@ -15,6 +15,7 @@ import (
 type EntryController interface {
 	GotoNextField() core.EntryField
 	TabNextField() core.EntryField
+	EscapeStateMachine() core.EntryField
 	SetActiveField(core.EntryField)
 
 	ToggleWorkmode()
@@ -27,7 +28,6 @@ type EntryController interface {
 	KeyerDec()
 
 	FButton(fkey int)
-	EscapeStateMachine()
 
 	Log()
 	Clear()

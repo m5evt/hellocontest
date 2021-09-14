@@ -255,6 +255,37 @@ func (c *Controller) TabNextField() core.EntryField {
 	return c.activeField
 }
 
+func (c *Controller) EscapeStateMachine() core.EntryField {
+	if c.keyer == nil {
+		return c.activeField
+	}
+	// Always stop the keyer with an ESC
+	c.keyer.Stop()
+
+	// Clear the box or go back one entry field
+	if c.activeField == core.TheirXchangeField {
+		if c.input.theirXchange != "" {
+			c.input.theirXchange = ""
+			c.view.SetTheirXchange(c.input.theirXchange)
+		} else {
+			c.activeField = core.CallsignField
+			c.view.SetActiveField(c.activeField)
+		}
+	} else if c.activeField == core.TheirReportField {
+		c.activeField = core.CallsignField
+		c.view.SetActiveField(c.activeField)
+	} else if c.activeField == core.CallsignField {
+		if c.input.callsign != "" {
+			c.Clear()
+		}
+	} else {
+		// Anything other than callsign, rst or xchange results
+		// in clearing the log entry
+		c.Clear()
+	}
+
+	return c.activeField
+}
 func (c *Controller) leaveCallsignField() {
 	callsign, err := callsign.Parse(c.input.callsign)
 	if err != nil {
@@ -365,14 +396,6 @@ func (c *Controller) FButton(fkey int) {
 	if c.editing == false {
 		c.keyer.Send(fkey)
 	}
-}
-
-func (c *Controller) EscapeStateMachine() {
-	if c.keyer == nil {
-		return
-	}
-
-	c.keyer.Stop()
 }
 
 func (c *Controller) frequencySelected(frequency core.Frequency) {
